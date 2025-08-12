@@ -1,272 +1,234 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Explore Japan</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+/* Navigation Bar */
+nav {
+    background-color: #2e7d32;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+nav ul li {
+    margin: 0 15px;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+nav ul li a:hover {
+    color: #ffd54f;
+}
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+/* Hero Section */
+.hero {
+    background: url('bihar-image.jpg') no-repeat center center/cover;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 1px 1px 3px #000;
+    animation: fadeInUp 1.5s ease-in-out;
+}
+.hero h1 {
+    font-size: 3rem;
+}
+.hero p {
+    font-size: 1.2rem;
+}
+.hero button {
+    padding: 10px 20px;
+    margin-top: 15px;
+    border: none;
+    background-color: #ffd54f;
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    animation: pulse 2s infinite;
+}
+.hero button:hover {
+    background-color: #ffca28;
+}
+
+/* Card Layout */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+.card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    animation: zoomIn 1s ease-in-out;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.card h3 {
+    padding: 10px;
+}
+.card p {
+    padding: 0 10px 10px;
+}
+
+/* Footer */
+footer {
+    background-color: #2e7d32;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+footer a {
+    color: #ffd54f;
+    margin: 0 5px;
+}
+
+/* Back to Top Button */
+#backToTop {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+}
+#backToTop:hover {
+    background: #1b5e20;
+}
+/* Popup Background */
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+/* Popup Content Box */
+.popup-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    width: 60%;
+    border-radius: 10px;
+    animation: popupAnim 0.5s ease-out;
+}
+
+/* Close Button */
+.close {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+/* Popup Animation */
+@keyframes popupAnim {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
     }
-
-    body, html {
-      font-family: 'Inter', sans-serif;
-      scroll-behavior: smooth;
-      background-color: #000;
-      color: #fff;
+    to {
+        transform: scale(1);
+        opacity: 1;
     }
+}
 
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background-color: #000;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      padding: 14px 0;
-      z-index: 1000;
-      border-bottom: 1px solid #333;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
+
+/* ========================= */
+/* ANIMATIONS */
+/* ========================= */
+
+/* Fade In Animation (Existing) */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
     }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 10px 20px;
-      border-radius: 6px;
-      transition: background 0.3s;
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    nav a:hover {
-      background: rgba(255, 255, 255, 0.1);
+/* Zoom In Animation */
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
     }
-
-    section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 80px 20px 40px;
-      text-align: center;
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
+}
 
-    h1, h2 {
-      margin-bottom: 25px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+/* Pulse Animation for Buttons */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
     }
-
-    p {
-      max-width: 900px;
-      text-align: justify;
-      line-height: 1.8;
-      font-size: 18px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    50% {
+        transform: scale(1.05);
     }
-
-    .bg-home {
-      background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
-                  url('HOME.jpg') no-repeat center center/cover;
+    100% {
+        transform: scale(1);
     }
+}
 
-    .bg1 {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
-        url('JAPAN.jpg') no-repeat center center/cover;
+/* Scroll Reveal Style (triggered via JS) */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+}
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
     }
-
-    .bg2 {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-        url('FAMOUS.jpg') no-repeat center center/cover;
-    }
-
-    .bg3 {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-        url('CULTURE.jpg') no-repeat center center/cover;
-    }
-
-    .bg4 {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
-        url('LAST.jpg') no-repeat center center/cover;
-    }
-
-    .welcome-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 64px;
-      color: #fff;
-      text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-      margin-bottom: 20px;
-    }
-
-    .welcome-subtext {
-      font-size: 16px;
-      max-width: 800px;
-      color: #ddd;
-      font-family: 'Inter', sans-serif;
-      text-shadow: 0 0 10px rgba(0,0,0,0.5);
-    }
-
-  
-    .famous-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 20px;
-    }
-
-    .famous-card {
-      width: 180px;
-      background-color: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      transition: transform 0.3s ease, background-color 0.3s;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    .famous-card:hover {
-      transform: scale(1.05);
-      background-color: rgba(255,255,255,0.15);
-    }
-
-    .famous-card img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 8px;
-    }
-
-    .famous-card p {
-      font-size: 16px;
-      color: #fff;
-      font-weight: 600;
-    }
-
-    @media (max-width: 768px) {
-      h1 { font-size: 28px; }
-      h2 { font-size: 24px; }
-      nav { flex-wrap: wrap; gap: 15px; }
-      .welcome-title { font-size: 42px; }
-      .welcome-subtext { font-size: 14px; }
-    }
-  </style>
-</head>
-
-<body>
-
-<nav>
-  <a href="#slide0">🎌 Home</a>
-  <a href="#slide1">🏯 Intro</a>
-  <a href="#slide2">🎌 Famous</a>
-  <a href="#slide3">🍜 Culture</a>
-  <a href="#slide4">🗾 Places</a>
-</nav>
-
-<section id="slide0" class="bg-home">
-  <h1 class="welcome-title">🎌 Welcome to Japan</h1>
-  <p class="welcome-subtext">
-    Dive into the heart of Japan — a country where tradition meets innovation, and every moment is a journey of wonder.
-  </p>
-</section>
-
-<section class="bg1" id="slide1">
-  <h1>🌸 About Japan</h1>
-  <p>
-    Japan is an island nation in East Asia known for its rich culture, advanced technology, and stunning natural beauty.
-    Its capital, Tokyo, is among the most vibrant and innovative cities in the world. Japan seamlessly blends tradition and
-    modernity — from historic shrines and cherry blossoms to bullet trains and robotics. With its world-famous cuisine like sushi and ramen,
-    and values rooted in respect and harmony, Japan is a destination that fascinates and inspires all who visit.
-  </p>
-</section>
-
-<section class="bg2" id="slide2">
-  <h2>🎌 Famous Things in Japan</h2>
-  <div class="famous-gallery">
-    <div class="famous-card">
-      <img src="sushi.jpg" alt="Sushi & Ramen">
-      <p>🍣 Sushi & Ramen</p>
-    </div>
-    <div class="famous-card">
-      <img src="fuji.jpg" alt="Mount Fuji">
-      <p>🗻 Mount Fuji</p>
-    </div>
-    <div class="famous-card">
-      <img src="shinkansen.jpg" alt="Bullet Trains">
-      <p>🚅 Shinkansen</p>
-    </div>
-    <div class="famous-card">
-      <img src="sakura.jpg" alt="Cherry Blossoms">
-      <p>🌸 Sakura</p>
-    </div>
-    <div class="famous-card">
-      <img src="anime.jpg" alt="Anime & Manga">
-      <p>🎮 Anime & Manga</p>
-    </div>
-  </div>
-</section>
-
-<section class="bg3" id="slide3">
-  <h2>🍱 Japanese Culture</h2>
-  <div class="famous-gallery">
-    <div class="famous-card">
-      <img src="tea.jpg" alt="Tea Ceremony">
-      <p>🍵 Tea Ceremony</p>
-    </div>
-    <div class="famous-card">
-      <img src="kimono.jpg" alt="Wearing Kimono">
-      <p>👘 Wearing Kimono</p>
-    </div>
-    <div class="famous-card">
-      <img src="calligraphy.jpg" alt="Calligraphy">
-      <p>🖌 Calligraphy</p>
-    </div>
-    <div class="famous-card">
-      <img src="anime-culture.jpg" alt="Anime & Cosplay">
-      <p>🎭 Anime & Cosplay</p>
-    </div>
-    <div class="famous-card">
-      <img src="zen.jpg" alt="Zen Temples">
-      <p>⛩ Zen Temples</p>
-    </div>
-  </div>
-</section>
-
-<section class="bg4" id="slide4">
-  <h2>🗾 Must Visit Places</h2>
-  <div class="famous-gallery">
-    <div class="famous-card">
-      <img src="tokyo-skytree.jpg" alt="Tokyo Skytree">
-      <p>🗼 Tokyo Skytree</p>
-    </div>
-    <div class="famous-card">
-      <img src="golden-pavilion.jpg" alt="Kyoto Pavilion">
-      <p>🏯 Kyoto Pavilion</p>
-    </div>
-    <div class="famous-card">
-      <img src="fushimi-inari.jpg" alt="Fushimi Inari Shrine">
-      <p>⛩ Fushimi Inari</p>
-    </div>
-    <div class="famous-card">
-      <img src="lavender.jpg" alt="Lavender Fields">
-      <p>🌸 Lavender Fields</p>
-    </div>
-    <div class="famous-card">
-      <img src="universal.jpg" alt="Universal Studios">
-      <p>🎡 Universal Studios</p>
-    </div>
-  </div>
-</section>
-
-</body>
-</html>
+}

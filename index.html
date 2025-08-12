@@ -295,6 +295,18 @@
   <a href="#slide5">PLACE</a>
   <a href="#slide6">CONTACT</a>
 </nav>
+<!-- Popup Trigger Button -->
+<button onclick="openPopup()">Learn More About Bihar</button>
+
+<!-- Popup Box -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>About Bihar</h2>
+        <p>ARE YOU EXCITED!!</p>
+    </div>
+</div>
+
 <section class="bg1" id="slide1">
   <h1 style="font-size: 60px; font-weight: 800; background-color: rgba(0,0,0,0.2); padding: 20px 40px; border-radius: 10px;">
     Let’s Explore Bihar
@@ -418,6 +430,35 @@
     <p>🏢 <strong>Address:</strong> Bihar State Tourism Development Corporation (BSTDC), Patna - 800001, India</p>
   </div>
 </section>
+    ...
+    <script>
+      function openPopup() {
+    document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+ 
+        // Scroll Reveal Function
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let elementTop = reveals[i].getBoundingClientRect().top;
+                let revealPoint = 150;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    reveals[i].classList.add('active');
+                } else {
+                    reveals[i].classList.remove('active');
+                }
+            }
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+    </script>
+
 
 </body>
 </html>
